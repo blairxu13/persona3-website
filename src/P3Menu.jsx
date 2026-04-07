@@ -189,9 +189,36 @@ export default function P3Menu({ onNavigate }) {
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
+
+        .p3-name-tag {
+          position: absolute;
+          top: 18px;
+          left: 22px;
+          z-index: 20;
+          font-family: 'Anton', sans-serif;
+          font-style: italic;
+          font-size: 108px;
+          line-height: 0.88;
+          letter-spacing: 2px;
+          color: rgba(10, 10, 14, 0.64);
+          transform: rotate(18deg);
+          transform-origin: left top;
+          user-select: none;
+          pointer-events: none;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .p3-name-tag span:first-child {
+          color: rgba(0, 0, 0, 0.86);
+        }
       `}</style>
 
       <div className="p3-overlay">
+        <div className="p3-name-tag">
+          <span>jade's</span>
+          <span>persona</span>
+        </div>
         <div className="p3-stripe" />
         <div className="p3-stripe2" />
 

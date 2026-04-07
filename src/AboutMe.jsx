@@ -7,8 +7,35 @@ import bgVideo from "./assets/main1.mp4";
 import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
 import icon3 from "./assets/icon3.png";
+import mainm from "./assets/mainm.jpeg";
+import mainm2 from "./assets/mainm2.jpeg";
+import mainf from "./assets/mainf.jpeg";
 
 const CHARS = [char1, char2, char3];
+const MAIN_IMAGES = [mainm, mainm2, mainf];
+
+const REVEAL_CONTENT = [
+  {
+    upper: ["name moneybagg", "age:23"],
+    lower: "major: computer science",
+  },
+  {
+    upper: [
+      "Cleopatra lived closer to the Moon landing than to the building of the pyramids.",
+      "Vikings kept cats on ships for pest control (and vibes).",
+      "In medieval Europe, animals could be put on trial for crimes",
+    ],
+    lower: "abbove is some history fun fact",
+  },
+  {
+    upper: [
+      "Oxford University founding is older than the Aztec Empire.",
+      "The shortest war in history lasted 38–45 minutes (Britain vs Zanzibar).",
+      "Humans have been writing for ~5,000 years",
+    ],
+    lower: "yes it's a place holder",
+  },
+];
 
 const ROLES = [
   { text: "LEADER", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
@@ -18,7 +45,7 @@ const ROLES = [
 
 const ITEMS = [
   {
-    id: "twitch", label: "TWITCH", handle: "@yourname", href: "https://twitch.tv/yourname", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
+    id: "twitch", label: "ABOUT ME", handle: "@yourname", href: "https://twitch.tv/yourname", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
     links: ["twitch.tv/videos/2041837265"],
     stats: [
       { tag: "FOL", value: "1.2K", color: "#9147ff" },
@@ -26,7 +53,7 @@ const ITEMS = [
     ],
   },
   {
-    id: "instagram", label: "INSTAGRAM", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", barIcon: icon2, bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
+    id: "instagram", label: "FUN FACT ABOUT ME", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", barIcon: icon2, bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
     links: ["instagram.com/p/C4xQmRrNk2a", "instagram.com/p/C3wLpBsOj7f", "instagram.com/reel/C2vKoArMi6e", "instagram.com/p/C1uJnZqLh5d", "instagram.com/reel/C0tImYpKg4c"],
     stats: [
       { tag: "FOL", value: "3.4K", color: "#e1306c" },
@@ -34,7 +61,7 @@ const ITEMS = [
     ],
   },
   {
-    id: "tiktok", label: "TIKTOK", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
+    id: "tiktok", label: "WIRED FACT ABOUT ME", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
     links: ["tiktok.com/@yourhandle/video/7318492016374859054", "tiktok.com/@yourhandle/video/7305837261940183342", "tiktok.com/@yourhandle/video/7291046385720348974", "tiktok.com/@yourhandle/video/7278392047163820334", "tiktok.com/@yourhandle/video/7264819203847165742", "tiktok.com/@yourhandle/video/7251047382916430126", "tiktok.com/@yourhandle/video/7237294018463851822"],
     stats: [
       { tag: "FOL", value: "8.9K", color: "#00f2ea" },
@@ -46,6 +73,7 @@ const ITEMS = [
 export default function AboutMe() {
   const [active, setActive]   = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,25 +83,59 @@ export default function AboutMe() {
 
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowUp")   setActive(i => Math.max(0, i - 1));
+      if (e.key === "ArrowUp") setActive(i => Math.max(0, i - 1));
       if (e.key === "ArrowDown") setActive(i => Math.min(ITEMS.length - 1, i + 1));
-      if (e.key === "Enter")     window.open(ITEMS[active].href, "_blank");
+      if (e.key === "Enter") setRevealed(true);
+      if (e.key === "ArrowRight") setRevealed(true);
+      if (e.key === "ArrowLeft") {
+        if (revealed) setRevealed(false);
+        else navigate(-1);
+      }
       if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, navigate]);
+  }, [active, navigate, revealed]);
 
   return (
     <div id="menu-screen">
       <video src={bgVideo} autoPlay loop muted playsInline />
+      {revealed && <div key={`dim-${active}`} className="sc-dim" />}
+      {revealed && (
+        <div key={`panel-${active}`} className={`sc-reveal-panel${mounted ? " mounted" : ""}`}>
+          <div className="sc-reveal-upper-bar">
+            {REVEAL_CONTENT[active].upper.map((line) => (
+              <div className="sc-reveal-upper-line" key={line}>{line}</div>
+            ))}
+          </div>
+          <div className="sc-reveal-lower-bar">{REVEAL_CONTENT[active].lower}</div>
+        </div>
+      )}
+      {revealed && (
+        <div key={`nav-${active}`} className="sc-right-nav">
+          <span className="sc-nav-arrow left">◄</span>
+          <span className="sc-nav-btn">LB</span>
+          <span className="sc-nav-dot" />
+          <span className="sc-nav-btn">RB</span>
+          <span className="sc-nav-arrow right">►</span>
+        </div>
+      )}
+      {revealed && (
+        <div key={`portrait-${active}`} className={`sc-main-portrait-shell${mounted ? " mounted" : ""}`}>
+          <img
+            className="sc-main-portrait"
+            src={MAIN_IMAGES[active]}
+            alt=""
+          />
+        </div>
+      )}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;1,700&family=Montserrat:wght@300&display=swap');
 
         .sc-root {
           position: absolute;
           inset: 0;
-          z-index: 10;
+          z-index: 6;
           pointer-events: none;
           display: flex;
           flex-direction: column;
@@ -81,6 +143,224 @@ export default function AboutMe() {
           justify-content: center;
           gap: 6px;
           padding-left: 0;
+        }
+
+        .sc-dim {
+          position: absolute;
+          inset: 0;
+          z-index: 12;
+          background: rgba(40, 45, 54, 0.68);
+          pointer-events: none;
+          animation: sc-dim-in 0.32s ease-out;
+        }
+
+        @keyframes sc-dim-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes sc-reveal-bar-in {
+          0% {
+            opacity: 0;
+            transform: translateX(-120px) rotate(-20deg) scaleX(0.72);
+          }
+          60% {
+            opacity: 0.96;
+            transform: translateX(18px) rotate(-20deg) scaleX(1.03);
+          }
+          100% {
+            opacity: 0.92;
+            transform: translateX(0) rotate(-20deg) scaleX(1);
+          }
+        }
+
+        @keyframes sc-portrait-in {
+          0% {
+            opacity: 0;
+            transform: translateX(78px) skewX(-8deg) scale(0.94);
+            filter: blur(8px);
+          }
+          55% {
+            opacity: 0.9;
+            transform: translateX(-8px) skewX(-8deg) scale(1.015);
+            filter: blur(0);
+          }
+          100% {
+            opacity: 0.96;
+            transform: translateX(0) skewX(-8deg) scale(1);
+            filter: blur(0);
+          }
+        }
+
+        @keyframes sc-arrow-left {
+          0%, 100% { transform: translateX(0); opacity: 1; }
+          50% { transform: translateX(-5px); opacity: 0.4; }
+        }
+
+        @keyframes sc-arrow-right {
+          0%, 100% { transform: translateX(0); opacity: 1; }
+          50% { transform: translateX(5px); opacity: 0.4; }
+        }
+
+        .sc-main-portrait-shell {
+          position: absolute;
+          top: 0;
+          right: -3vw;
+          z-index: 13;
+          pointer-events: none;
+          width: 43vw;
+          height: 100vh;
+          overflow: hidden;
+          opacity: 0;
+          transform: translateX(24px) skewX(-8deg) scale(0.98);
+          transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .sc-main-portrait-shell.mounted {
+          opacity: 0.96;
+          transform: translateX(0) skewX(-8deg) scale(1);
+          animation: sc-portrait-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .sc-reveal-panel {
+          position: absolute;
+          top: 44vh;
+          left: -6vw;
+          width: 88vw;
+          height: 60vh;
+          z-index: 12;
+          pointer-events: none;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(243,246,252,0.98) 100%);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 88px) 100%, 0 100%);
+          box-shadow:
+            0 0 0 2px rgba(255,255,255,0.18),
+            18px 0 0 rgba(215, 13, 44, 0.82),
+            28px 0 0 rgba(255,255,255,0.26);
+          opacity: 0;
+          transform: translateX(-40px) rotate(-20deg);
+          transform-origin: left bottom;
+          transition: opacity 0.3s ease, transform 0.35s ease;
+        }
+        .sc-reveal-panel.mounted {
+          opacity: 0.92;
+          transform: translateX(0) rotate(-20deg);
+          animation: sc-reveal-bar-in 0.46s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .sc-reveal-panel::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 8px;
+          background: linear-gradient(180deg, #e03d31 0%, #eb3333 100%);
+          clip-path: inherit;
+        }
+        .sc-reveal-upper-bar {
+          position: absolute;
+          top: 10%;
+          left: 0%;
+          width: 100%;
+          height: 40%;
+          background: rgba(0, 0, 0, 0.92);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          color: #fff;
+          text-align: center;
+        }
+        .sc-reveal-upper-line {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          font-size: 20px;
+          letter-spacing: 0.5px;
+          line-height: 1.15;
+        }
+        .sc-reveal-lower-bar {
+          position: absolute;
+          top: 58%;
+          right: 0;
+          width: 48%;
+          height: 20%;
+          background: rgba(0, 0, 0, 0.92);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          color: #fff;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          font-size: 22px;
+          letter-spacing: 0.4px;
+          text-transform: lowercase;
+          padding-left: 22px;
+        }
+
+        @keyframes sc-right-nav-pop {
+          0%   { opacity: 0; transform: scale(0.55) translateY(-10px); }
+          65%  { opacity: 1; transform: scale(1.1) translateY(2px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .sc-right-nav {
+          position: absolute;
+          top: 10vh;
+          left: 6vw;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          pointer-events: none;
+          z-index: 14;
+          transform: translateX(-40px) rotate(-20deg);
+          transform-origin: left bottom;
+          animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .sc-right-nav .sc-nav-btn {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 100px;
+          letter-spacing: 3px;
+          line-height: 1;
+          user-select: none;
+          color: #fff;
+          -webkit-text-stroke: 2px #000;
+          paint-order: stroke fill;
+          background: none;
+          border: none;
+          padding: 0 6px;
+        }
+        .sc-right-nav .sc-nav-dot {
+          width: 16px;
+          height: 16px;
+          border-radius: 999px;
+          background: #111;
+          margin: 0 10px;
+          flex-shrink: 0;
+        }
+        .sc-right-nav .sc-nav-arrow {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 22px;
+          color: #c4001a;
+          display: inline-block;
+          user-select: none;
+        }
+        .sc-right-nav .sc-nav-arrow.left  { animation: sc-arrow-left  0.8s ease-in-out infinite; }
+        .sc-right-nav .sc-nav-arrow.right { animation: sc-arrow-right 0.8s ease-in-out infinite; }
+
+        .sc-main-portrait {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top right;
+          transform: skewX(8deg) scale(1.08);
+          transform-origin: top right;
         }
 
         /* ── Each bar ── */
@@ -200,6 +480,7 @@ export default function AboutMe() {
           align-items: center;
           justify-content: center;
           gap: 3px;
+          padding-left: 78px;
         }
         .sc-main-top {
           display: flex;
@@ -313,7 +594,7 @@ export default function AboutMe() {
           display: flex; flex-direction: column;
           align-items: flex-end; gap: 5px;
           font-family: 'Bebas Neue', sans-serif;
-          z-index: 50;
+          z-index: 14;
           opacity: 0;
           transition: opacity 0.4s ease 0.6s;
         }
@@ -336,10 +617,11 @@ export default function AboutMe() {
             key={item.id}
             className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
             onClick={() => {
-              if (active === i) window.open(item.href, "_blank");
-              else setActive(i);
+              setActive(i);
             }}
-            onMouseEnter={() => setActive(i)}
+            onMouseEnter={() => {
+              setActive(i);
+            }}
           >
             <div className="sc-bar-red" />
             <div className="sc-bar">
@@ -350,23 +632,8 @@ export default function AboutMe() {
                 <div className="sc-role">{ROLES[i].text}</div>
                 <div className="sc-main">
                   <div className="sc-main-top">
-                    <div className="sc-icon">{item.icon}</div>
                     <div className="sc-label">{item.label}</div>
                   </div>
-                </div>
-                <div className="sc-stats">
-                  {item.stats.map(s => (
-                    <div className="sc-stat" key={s.tag}>
-                      <div className="sc-stat-top">
-                        <span className="sc-stat-tag" style={{ color: s.color, borderColor: s.color }}>{s.tag}</span>
-                        <span className="sc-stat-num">{s.value}</span>
-                      </div>
-                      <div className="sc-stat-bars">
-                        <div className="sc-stat-bar-color" style={{ background: s.color }} />
-                        <div className="sc-stat-bar-black" />
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
@@ -376,7 +643,7 @@ export default function AboutMe() {
 
       <div className={`sc-footer${mounted ? " mounted" : ""}`}>
         <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
-        <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>OPEN</span></div>
+        <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>REVEAL</span></div>
         <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
       </div>
     </div>

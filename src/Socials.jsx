@@ -70,11 +70,11 @@ export default function Socials() {
         if (e.key === "ArrowLeft") setFocus("left");
         if (e.key === "Enter")     window.open("https://" + ITEMS[active].links[activeInfoBar], "_blank");
       }
-      if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
+      if ((e.key === "ArrowLeft" && focus === "left") || e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, navigate]);
+  }, [active, navigate, focus]);
 
   return (
     <div id="menu-screen">
