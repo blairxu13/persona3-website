@@ -76,6 +76,21 @@ export default function AboutMe() {
   const [revealed, setRevealed] = useState(false);
   const navigate = useNavigate();
 
+  const isMobileViewport =
+    typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+
+  const handleBarClick = (index) => {
+    if (isMobileViewport && active === index) {
+      setRevealed((prev) => !prev);
+      return;
+    }
+
+    setActive(index);
+    if (isMobileViewport) {
+      setRevealed(false);
+    }
+  };
+
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 60);
     return () => clearTimeout(t);
@@ -289,20 +304,24 @@ export default function AboutMe() {
           top: 58%;
           right: 0;
           width: 48%;
-          height: 20%;
+          min-height: 20%;
+          max-height: 34%;
           background: rgba(0, 0, 0, 0.92);
           clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
           box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: flex-start;
           color: #fff;
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
           font-size: 22px;
+          line-height: 1.18;
           letter-spacing: 0.4px;
           text-transform: lowercase;
-          padding-left: 22px;
+          white-space: normal;
+          overflow-y: auto;
+          padding: 10px 18px 10px 22px;
         }
 
         @keyframes sc-right-nav-pop {
@@ -609,6 +628,136 @@ export default function AboutMe() {
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
+
+        .sc-mobile-controls {
+          display: none;
+        }
+
+        .sc-mobile-btn {
+          border: 1px solid rgba(255, 255, 255, 0.28);
+          background: rgba(0, 0, 0, 0.6);
+          color: #fff;
+          font-family: 'Bebas Neue', sans-serif;
+          letter-spacing: 1.2px;
+          font-size: 13px;
+          padding: 7px 12px;
+          border-radius: 8px;
+          min-width: 86px;
+        }
+
+        @media (max-width: 768px) {
+          .sc-main-portrait-shell {
+            top: 8vh;
+            right: -9vw;
+            width: 46vw;
+            height: 44vh;
+            z-index: 13;
+          }
+
+          .sc-main-portrait {
+            transform: none;
+            object-position: center top;
+          }
+
+          .sc-reveal-panel {
+            top: 44vh !important;
+            left: 4vw !important;
+            right: 6vw !important;
+            width: auto !important;
+            height: 50vh !important;
+            z-index: 14;
+            transform: translateX(0) rotate(0deg) !important;
+            clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
+            box-shadow:
+              0 0 0 2px rgba(255,255,255,0.24),
+              10px 0 0 rgba(215, 13, 44, 0.9),
+              16px 0 0 rgba(255,255,255,0.24);
+          }
+
+          .sc-reveal-panel.mounted {
+            transform: translateX(0) rotate(0deg) !important;
+          }
+
+          .sc-reveal-panel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 18px;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(224,61,49,0.95) 0%, rgba(168,22,43,0.92) 100%);
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 0.95;
+            pointer-events: none;
+          }
+
+          .sc-reveal-upper-bar {
+            top: 10%;
+            height: 46%;
+            width: 96%;
+            left: 2%;
+          }
+
+          .sc-reveal-upper-line {
+            font-size: 14px;
+            line-height: 1.1;
+            padding: 0 10px;
+          }
+
+          .sc-reveal-lower-bar {
+            top: 62%;
+            width: 88%;
+            bottom: 8%;
+            height: auto;
+            max-height: none;
+            font-size: 15px;
+            line-height: 1.2;
+            padding: 8px 12px 8px 12px;
+          }
+
+          .sc-right-nav {
+            top: 2vh;
+            left: 4vw;
+            transform: translateX(0) rotate(-12deg);
+          }
+
+          .sc-mobile-controls {
+            position: fixed;
+            left: 8px;
+            right: 8px;
+            bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 18;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            pointer-events: all;
+          }
+
+          .sc-footer {
+            display: none;
+          }
+        }
+
+        @media (min-width: 769px) and (max-width: 1200px) {
+          .sc-main-portrait-shell {
+            right: -6vw;
+            width: 44vw;
+            height: 92vh;
+          }
+
+          .sc-reveal-panel {
+            top: 46vh;
+            left: -2vw;
+            width: 78vw;
+            height: 52vh;
+            transform: translateX(0) rotate(-14deg);
+          }
+
+          .sc-reveal-panel.mounted {
+            transform: translateX(0) rotate(-14deg);
+          }
+        }
       `}</style>
 
       <div className="sc-root" role="navigation">
@@ -617,7 +766,7 @@ export default function AboutMe() {
             key={item.id}
             className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
             onClick={() => {
-              setActive(i);
+              handleBarClick(i);
             }}
             onMouseEnter={() => {
               setActive(i);
@@ -645,6 +794,15 @@ export default function AboutMe() {
         <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
         <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>REVEAL</span></div>
         <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
+      </div>
+
+      <div className="sc-mobile-controls" aria-label="About mobile controls">
+        <button className="sc-mobile-btn" type="button" onClick={() => navigate(-1)}>
+          BACK
+        </button>
+        <button className="sc-mobile-btn" type="button" onClick={() => setRevealed((prev) => !prev)}>
+          {revealed ? "HIDE" : "REVEAL"}
+        </button>
       </div>
     </div>
   );

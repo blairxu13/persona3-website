@@ -368,6 +368,37 @@ export default function ResumePage({ src }) {
           color: #edfaff;
         }
 
+        .resume-mobile-controls {
+          display: none;
+        }
+
+        .resume-mobile-btn {
+          border: 1px solid rgba(255, 255, 255, 0.28);
+          background: rgba(6, 13, 55, 0.8);
+          color: #fff;
+          font-family: 'Bebas Neue', sans-serif;
+          letter-spacing: 1.2px;
+          font-size: 13px;
+          padding: 7px 12px;
+          border-radius: 8px;
+          min-width: 84px;
+        }
+
+        @media (max-width: 768px) {
+          .resume-mobile-controls {
+            position: fixed;
+            left: 8px;
+            right: 8px;
+            bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            pointer-events: all;
+          }
+        }
+
       `}</style>
 
       <div className="resume-overlay">
@@ -433,6 +464,12 @@ export default function ResumePage({ src }) {
           </div>
         )}
 
+      </div>
+
+      <div className="resume-mobile-controls" aria-label="Resume mobile controls">
+        <button className="resume-mobile-btn" type="button" onClick={() => navigate(-1)}>
+          BACK
+        </button>
       </div>
     </div>
   );

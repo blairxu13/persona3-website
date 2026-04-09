@@ -13,6 +13,7 @@ body {
   position: relative;
   width: 100vw;
   height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 }
 
@@ -27,4 +28,416 @@ body {
 #main {
   width: 100vw;
   height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Touch-friendly defaults for narrow screens */
+@media (max-width: 1024px) {
+  #menu-screen,
+  #main {
+    height: 100dvh;
+  }
+
+  .p3-menu {
+    padding: clamp(12px, 2.5vw, 24px) !important;
+    transform: scale(0.86);
+    transform-origin: center;
+  }
+
+  .p3-name-tag {
+    font-size: clamp(56px, 9vw, 94px) !important;
+    top: clamp(6px, 2vw, 14px) !important;
+    left: clamp(8px, 2vw, 18px) !important;
+    transform: rotate(12deg) !important;
+  }
+
+  .p3-hint {
+    bottom: max(12px, env(safe-area-inset-bottom)) !important;
+    right: clamp(10px, 2.5vw, 18px) !important;
+  }
+
+  .resume-stack {
+    left: clamp(8px, 2vw, 18px) !important;
+    top: clamp(12px, 3vh, 28px) !important;
+    width: min(92vw, 740px) !important;
+    transform: none !important;
+    gap: 8px !important;
+  }
+
+  .resume-detail-panel {
+    right: clamp(8px, 2vw, 16px) !important;
+    width: min(90vw, 680px) !important;
+  }
+
+  .sc-root {
+    justify-content: flex-start !important;
+    padding-top: clamp(12px, 4vh, 34px) !important;
+    gap: 4px !important;
+  }
+
+  .sc-bar,
+  .sc-bar-red {
+    width: min(88vw, 760px) !important;
+  }
+
+  .sc-char {
+    left: clamp(56px, 8vw, 86px) !important;
+    max-width: clamp(88px, 16vw, 130px) !important;
+  }
+
+  .sc-main {
+    padding-left: clamp(54px, 10vw, 90px) !important;
+  }
+
+  .sc-label {
+    font-size: clamp(18px, 3.2vw, 24px) !important;
+    letter-spacing: clamp(1px, 0.7vw, 3px) !important;
+  }
+
+  .sc-role {
+    font-size: clamp(30px, 5vw, 40px) !important;
+  }
+
+  .sc-stats {
+    gap: clamp(4px, 1vw, 8px) !important;
+    padding-right: clamp(8px, 2vw, 16px) !important;
+  }
+
+  .sc-stat-num {
+    font-size: clamp(16px, 2.5vw, 22px) !important;
+  }
+
+  .sc-right-nav {
+    top: clamp(8px, 2.5vh, 22px) !important;
+    right: clamp(8px, 2vw, 16px) !important;
+  }
+
+  .sc-right-nav .sc-nav-btn {
+    font-size: clamp(52px, 8.5vw, 84px) !important;
+    -webkit-text-stroke: 1px #000 !important;
+  }
+
+  .sc-right-nav .sc-nav-label {
+    font-size: clamp(18px, 2.8vw, 24px) !important;
+    letter-spacing: 1px !important;
+  }
+
+  .sc-info-bar-wrap {
+    left: 52% !important;
+    height: clamp(38px, 5.2vh, 46px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .p3-menu {
+    transform: scale(0.66);
+  }
+
+  .p3-row {
+    transform-origin: center;
+  }
+
+  .p3-name-tag {
+    font-size: clamp(44px, 10vw, 68px) !important;
+    letter-spacing: 1px !important;
+    line-height: 0.9 !important;
+  }
+
+  .p3-hint {
+    font-size: 11px !important;
+    gap: 2px !important;
+  }
+
+  .p3-hint-row {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+  }
+
+  .resume-overlay {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+
+  .resume-stack {
+    position: relative !important;
+    width: min(96vw, 620px) !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 10px auto 0 auto !important;
+  }
+
+  .resume-list-tag {
+    font-size: clamp(46px, 12vw, 76px) !important;
+    margin-left: 8px !important;
+  }
+
+  .resume-card {
+    height: clamp(72px, 13vw, 96px) !important;
+  }
+
+  .resume-card-inner {
+    padding: 10px 14px 10px 44px !important;
+  }
+
+  .resume-badge {
+    width: clamp(34px, 8vw, 48px) !important;
+    height: clamp(44px, 10vw, 62px) !important;
+    left: -7px !important;
+  }
+
+  .resume-badge-text {
+    font-size: clamp(24px, 5.5vw, 32px) !important;
+  }
+
+  .resume-title {
+    font-size: clamp(24px, 7vw, 40px) !important;
+  }
+
+  .resume-rank-label {
+    font-size: clamp(16px, 3.8vw, 24px) !important;
+  }
+
+  .resume-rank-number {
+    font-size: clamp(34px, 8.5vw, 54px) !important;
+  }
+
+  .resume-subtitle-bar {
+    left: 42px !important;
+    right: 8px !important;
+    height: clamp(22px, 5vw, 30px) !important;
+    bottom: 8px !important;
+    padding: 0 10px !important;
+  }
+
+  .resume-subtitle {
+    font-size: clamp(14px, 3.4vw, 22px) !important;
+  }
+
+  .resume-detail-panel {
+    position: relative !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: min(96vw, 620px) !important;
+    min-height: 0 !important;
+    margin: 12px auto 24px auto !important;
+    padding: 14px 12px !important;
+  }
+
+  .resume-detail-top {
+    grid-template-columns: 44px 1fr auto !important;
+    min-height: 64px !important;
+    gap: 8px !important;
+    padding: 0 10px !important;
+  }
+
+  .resume-detail-top-index {
+    font-size: clamp(28px, 6vw, 38px) !important;
+  }
+
+  .resume-detail-top-title {
+    font-size: clamp(22px, 5vw, 32px) !important;
+  }
+
+  .resume-detail-top-progress {
+    font-size: clamp(24px, 6vw, 36px) !important;
+  }
+
+  .resume-detail-row {
+    min-height: 44px !important;
+    gap: 8px !important;
+    grid-template-columns: 34px 1fr auto !important;
+    padding: 0 8px !important;
+  }
+
+  .resume-detail-row-index {
+    font-size: clamp(18px, 4vw, 24px) !important;
+  }
+
+  .resume-detail-row-title {
+    font-size: clamp(16px, 3.9vw, 22px) !important;
+  }
+
+  .resume-detail-status {
+    font-size: clamp(14px, 3.2vw, 18px) !important;
+    padding: 4px 8px !important;
+  }
+
+  .resume-detail-bottom-title {
+    font-size: clamp(20px, 4.8vw, 28px) !important;
+  }
+
+  .resume-detail-bullet {
+    font-size: clamp(14px, 3.6vw, 18px) !important;
+  }
+
+  .sc-root {
+    padding-top: 10px !important;
+    gap: 3px !important;
+  }
+
+  .sc-bar,
+  .sc-bar-red {
+    width: min(96vw, 560px) !important;
+    height: clamp(48px, 8.5vh, 58px) !important;
+  }
+
+  .sc-bar-outer.active .sc-bar,
+  .sc-bar-outer.active .sc-bar-red {
+    height: clamp(62px, 10vh, 72px) !important;
+  }
+
+  .sc-bar-content {
+    padding: 0 8px !important;
+  }
+
+  .sc-role {
+    font-size: clamp(22px, 4.8vw, 30px) !important;
+    padding: 0 8px 0 4px !important;
+  }
+
+  .sc-main {
+    padding-left: clamp(44px, 11vw, 66px) !important;
+  }
+
+  .sc-main-top {
+    gap: 6px !important;
+  }
+
+  .sc-icon {
+    font-size: clamp(14px, 3vw, 18px) !important;
+    width: 20px !important;
+  }
+
+  .sc-label {
+    font-size: clamp(14px, 3.6vw, 18px) !important;
+    letter-spacing: 1px !important;
+  }
+
+  .sc-stats {
+    display: none !important;
+  }
+
+  .sc-char {
+    left: clamp(34px, 8vw, 50px) !important;
+    max-width: clamp(62px, 14vw, 88px) !important;
+  }
+
+  .sc-info-bar-wrap {
+    left: 2.5% !important;
+    right: 2.5% !important;
+    width: auto !important;
+    height: clamp(34px, 5.8vh, 40px) !important;
+  }
+
+  .sc-info-bar-icon {
+    margin-left: 8px !important;
+  }
+
+  .sc-info-bar-text {
+    font-size: clamp(14px, 3.2vw, 18px) !important;
+    letter-spacing: 1px !important;
+    padding: 0 8px !important;
+  }
+
+  .sc-info-bar-box {
+    font-size: clamp(12px, 2.8vw, 16px) !important;
+    padding: 0 8px !important;
+  }
+
+  .sc-info-bar-count {
+    font-size: clamp(13px, 3vw, 16px) !important;
+    margin-right: 10px !important;
+  }
+
+  .sc-right-nav {
+    left: 8px !important;
+    right: auto !important;
+    top: 6px !important;
+    gap: 3px !important;
+  }
+
+  .sc-right-nav .sc-nav-btn {
+    font-size: clamp(36px, 9vw, 52px) !important;
+    padding: 0 2px !important;
+    -webkit-text-stroke: 1px #000 !important;
+  }
+
+  .sc-right-nav .sc-nav-label,
+  .sc-right-nav .sc-nav-dot {
+    display: none !important;
+  }
+
+  .sc-right-nav .sc-nav-arrow {
+    font-size: 16px !important;
+  }
+
+  .sc-main-portrait-shell {
+    width: 44vw !important;
+    right: -10vw !important;
+  }
+
+  .sc-reveal-panel {
+    width: 96vw !important;
+    left: -22vw !important;
+    top: 42vh !important;
+    height: 56vh !important;
+    transform: translateX(0) rotate(-14deg) !important;
+  }
+
+  .sc-reveal-upper-line {
+    font-size: clamp(13px, 3.2vw, 16px) !important;
+    line-height: 1.1 !important;
+    padding: 0 12px !important;
+  }
+
+  .sc-reveal-lower-bar {
+    width: 60% !important;
+    font-size: clamp(14px, 3.2vw, 17px) !important;
+    padding-left: 10px !important;
+  }
+
+  .sc-footer {
+    bottom: max(8px, env(safe-area-inset-bottom)) !important;
+    right: 8px !important;
+    gap: 2px !important;
+  }
+
+  .sc-footer-row {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+    gap: 5px !important;
+  }
+
+  .sc-footer-key {
+    padding: 1px 4px !important;
+    font-size: 9px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .p3-menu {
+    transform: scale(0.54);
+  }
+
+  .p3-name-tag {
+    font-size: clamp(34px, 10vw, 48px) !important;
+  }
+
+  .sc-main-portrait-shell {
+    width: 46vw !important;
+    right: -12vw !important;
+  }
+
+  .sc-reveal-panel {
+    top: 45vh !important;
+    left: -34vw !important;
+    width: 122vw !important;
+    height: 52vh !important;
+  }
 }

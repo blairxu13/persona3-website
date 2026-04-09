@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import char1 from "./assets/char1.png";
 import char2 from "./assets/char2.png";
 import char3 from "./assets/char3.png";
-import bgVideo from "./assets/main3.mp4";
+import bgVideo from "./main3.mp4";
 import newsign from "./assets/newsign.png";
 import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
@@ -50,6 +50,9 @@ export default function Socials() {
   const [activeInfoBar, setActiveInfoBar] = useState(0);
   const [focus, setFocus]                 = useState("left"); // "left" | "right"
   const navigate = useNavigate();
+
+  const isMobileViewport =
+    typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 60);
@@ -394,21 +397,38 @@ export default function Socials() {
         .sc-right-nav .sc-nav-arrow.left  { animation: sc-arrow-left  0.8s ease-in-out infinite; }
         .sc-right-nav .sc-nav-arrow.right { animation: sc-arrow-right 0.8s ease-in-out infinite; }
 
-        /* info bar under nav */
+        /* info panel */
+        .sc-info-panel {
+          position: fixed;
+          top: 132px;
+          right: 0;
+          left: 65%;
+          bottom: 84px;
+          z-index: 50;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          padding: 8px 8px 8px 0;
+          overflow-y: auto;
+          overflow-x: hidden;
+          pointer-events: none;
+        }
+
         @keyframes sc-infobar-in {
           0%   { opacity: 0; transform: translateX(40px); }
           60%  { opacity: 1; transform: translateX(-4px); }
           100% { opacity: 1; transform: translateX(0); }
         }
         .sc-info-bar-wrap {
-          position: fixed;
-          right: 0;
-          left: 65%;
+          position: relative;
+          right: auto;
+          left: auto;
+          width: 100%;
           height: 46px;
           background: transparent;
           pointer-events: all;
           cursor: pointer;
-          z-index: 50;
+          z-index: 1;
           padding: 0;
           animation: sc-infobar-in 0.35s cubic-bezier(0.22,1,0.36,1) both;
         }
@@ -514,6 +534,70 @@ export default function Socials() {
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
+
+        .sc-mobile-controls {
+          display: none;
+        }
+
+        .sc-mobile-btn {
+          border: 1px solid rgba(255, 255, 255, 0.28);
+          background: rgba(0, 0, 0, 0.62);
+          color: #fff;
+          font-family: 'Bebas Neue', sans-serif;
+          letter-spacing: 1.2px;
+          font-size: 13px;
+          padding: 7px 12px;
+          border-radius: 8px;
+          min-width: 84px;
+        }
+
+        @media (max-width: 768px) {
+          .sc-root {
+            justify-content: flex-start;
+            padding-top: 12px;
+            gap: 3px;
+          }
+
+          .sc-info-panel {
+            top: min(47vh, 320px);
+            left: 8px;
+            right: 8px;
+            bottom: 58px;
+            gap: 4px;
+            padding: 4px 0;
+          }
+
+          .sc-info-bar-wrap {
+            height: 38px !important;
+          }
+
+          .sc-info-bar-text {
+            font-size: 15px;
+            letter-spacing: 1px;
+          }
+
+          .sc-info-bar-count {
+            margin-right: 10px;
+            font-size: 14px;
+          }
+
+          .sc-footer {
+            display: none;
+          }
+
+          .sc-mobile-controls {
+            position: fixed;
+            left: 8px;
+            right: 8px;
+            bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 60;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            pointer-events: all;
+          }
+        }
       `}</style>
 
       <div className="sc-root" role="navigation">
@@ -570,30 +654,53 @@ export default function Socials() {
         </div>
       )}
 
-      {mounted && Array.from({ length: ITEMS[active].bars }).map((_, i) => (
-        <div
-          className={`sc-info-bar-wrap${activeInfoBar === i ? " selected" : ""}`}
-          key={`bar-${active}-${i}`}
-          style={{ top: `${155 + i * 52}px`, animationDelay: `${i * 50}ms` }}
-          onClick={() => setActiveInfoBar(i)}
-          onMouseEnter={() => setActiveInfoBar(i)}
-        >
-          {ITEMS[active].newBars.includes(i) && (
-            <img className="sc-info-bar-new" src={newsign} alt="" />
-          )}
-          <div className="sc-info-bar">
-            <img className="sc-info-bar-icon" src={ITEMS[active].barIcon} alt="" />
-            <span className="sc-info-bar-text">{ITEMS[active].links[i].slice(0, 10)}...</span>
-            <span className="sc-info-bar-box">VIEWS</span>
-            <span className="sc-info-bar-count">{ITEMS[active].counts[i]}</span>
-          </div>
+      {mounted && (
+        <div className="sc-info-panel" key={`panel-${active}`}>
+          {Array.from({ length: ITEMS[active].bars }).map((_, i) => (
+            <div
+              className={`sc-info-bar-wrap${activeInfoBar === i ? " selected" : ""}`}
+              key={`bar-${active}-${i}`}
+              style={{ animationDelay: `${i * 50}ms` }}
+              onClick={() => {
+                if (isMobileViewport || activeInfoBar === i) {
+                  window.open("https://" + ITEMS[active].links[i], "_blank");
+                  return;
+                }
+                setActiveInfoBar(i);
+              }}
+              onMouseEnter={() => setActiveInfoBar(i)}
+            >
+              {ITEMS[active].newBars.includes(i) && (
+                <img className="sc-info-bar-new" src={newsign} alt="" />
+              )}
+              <div className="sc-info-bar">
+                <img className="sc-info-bar-icon" src={ITEMS[active].barIcon} alt="" />
+                <span className="sc-info-bar-text">{ITEMS[active].links[i].slice(0, 10)}...</span>
+                <span className="sc-info-bar-box">VIEWS</span>
+                <span className="sc-info-bar-count">{ITEMS[active].counts[i]}</span>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
 
       <div className={`sc-footer${mounted ? " mounted" : ""}`}>
         <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
         <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>OPEN</span></div>
         <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
+      </div>
+
+      <div className="sc-mobile-controls" aria-label="Socials mobile controls">
+        <button className="sc-mobile-btn" type="button" onClick={() => navigate(-1)}>
+          BACK
+        </button>
+        <button
+          className="sc-mobile-btn"
+          type="button"
+          onClick={() => window.open(ITEMS[active].href, "_blank")}
+        >
+          OPEN
+        </button>
       </div>
     </div>
   );
