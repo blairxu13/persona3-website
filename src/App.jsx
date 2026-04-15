@@ -14,10 +14,19 @@ import './App.css'
 
 function MenuScreen() {
   const navigate = useNavigate()
+
+  const handleNavigate = (page) => {
+    if (page === 'github') {
+      window.open('https://github.com/blairxu13/persona3-website', '_blank', 'noopener,noreferrer')
+      return
+    }
+    navigate(`/${page}`)
+  }
+
   return (
     <div id="menu-screen">
       <video src={menuVideo} autoPlay loop muted playsInline />
-      <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
+      <P3Menu onNavigate={handleNavigate} />
     </div>
   )
 }
@@ -38,6 +47,12 @@ function AnimatedRoutes() {
         } />
         <Route path="/socials" element={
           <PageTransition variant="socials"><Socials /></PageTransition>
+        } />
+        <Route path="/sideproj" element={
+          <PageTransition><VideoPage src={main3} /></PageTransition>
+        } />
+        <Route path="/sideproject" element={
+          <PageTransition><VideoPage src={main3} /></PageTransition>
         } />
       </Routes>
     </AnimatePresence>
