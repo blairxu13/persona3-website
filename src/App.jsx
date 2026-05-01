@@ -1,16 +1,18 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import menuVideo from './assets/Mainn.mp4'
-import main1 from './assets/main1.mp4'
-import main2 from './assets/main2.mp4'
-import main3 from './assets/main3.mp4'
+import menuVideo from './assets/Main1.mp4'
+import main1 from './assets/Main1.mp4'
+import main2 from './assets/Main1.mp4'
+import main3 from './assets/Main1.mp4'
 import P3Menu from './P3Menu'
-import VideoPage from './VideoPage'
+//import VideoPage from './VideoPage'
 import ResumePage from './ResumePage'
 import PageTransition from './PageTransition'
 import Socials from './Socials'
 import AboutMe from './AboutMe'
-import './App.css'
+//import Github from './Github'
+import './App.css' 
+import { useEffect } from 'react'
 
 function MenuScreen() {
   const navigate = useNavigate()
@@ -21,6 +23,14 @@ function MenuScreen() {
     </div>
   )
 }
+
+const ExternalRedirect = ({ url }) => {
+  useEffect(() => {
+    window.location.href = url;
+  }, [url]);
+
+  return null; // Or a loading spinner/message
+};
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -35,6 +45,11 @@ function AnimatedRoutes() {
         } />
         <Route path="/resume" element={
           <PageTransition><ResumePage src={main2} /></PageTransition>
+        } />
+        <Route path="/github" element={
+          <PageTransition variant="github">
+            <ExternalRedirect url="https://github.com/JudgeBreaded" />
+          </PageTransition>
         } />
         <Route path="/socials" element={
           <PageTransition variant="socials"><Socials /></PageTransition>

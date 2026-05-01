@@ -16,24 +16,26 @@ const MAIN_IMAGES = [mainm, mainm2, mainf];
 
 const REVEAL_CONTENT = [
   {
-    upper: ["name moneybagg", "age:23"],
-    lower: "major: computer science",
+    upper: ["Name : Brett MacKinnon", 
+            "Age:30",
+          ],
+    lower: "Current Position: Web Developer",
   },
   {
     upper: [
-      "Cleopatra lived closer to the Moon landing than to the building of the pyramids.",
-      "Vikings kept cats on ships for pest control (and vibes).",
+      "Despite the size range of cats, Their tongue barbs are roughly the same",
+      "If you could fly a plane to Pluto, the trip would take more than 800 years!",
       "In medieval Europe, animals could be put on trial for crimes",
     ],
-    lower: "abbove is some history fun fact",
+    lower: "above are some fun facts",
   },
   {
     upper: [
-      "Oxford University founding is older than the Aztec Empire.",
-      "The shortest war in history lasted 38–45 minutes (Britain vs Zanzibar).",
-      "Humans have been writing for ~5,000 years",
+      "- Currently play in Two DnD Campaigns",
+      "- Love building large armor cosplay (Space Marines!)",
+      "- Reading Through all of Brandon Sanderson",
     ],
-    lower: "yes it's a place holder",
+    lower: "Hoping to begin traveling more!",
   },
 ];
 
@@ -53,7 +55,7 @@ const ITEMS = [
     ],
   },
   {
-    id: "instagram", label: "FUN FACT ABOUT ME", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", barIcon: icon2, bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
+    id: "instagram", label: "FUN FACTS", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", barIcon: icon2, bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
     links: ["instagram.com/p/C4xQmRrNk2a", "instagram.com/p/C3wLpBsOj7f", "instagram.com/reel/C2vKoArMi6e", "instagram.com/p/C1uJnZqLh5d", "instagram.com/reel/C0tImYpKg4c"],
     stats: [
       { tag: "FOL", value: "3.4K", color: "#e1306c" },
@@ -61,7 +63,7 @@ const ITEMS = [
     ],
   },
   {
-    id: "tiktok", label: "WIRED FACT ABOUT ME", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
+    id: "tiktok", label: "Current Hobbies", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
     links: ["tiktok.com/@yourhandle/video/7318492016374859054", "tiktok.com/@yourhandle/video/7305837261940183342", "tiktok.com/@yourhandle/video/7291046385720348974", "tiktok.com/@yourhandle/video/7278392047163820334", "tiktok.com/@yourhandle/video/7264819203847165742", "tiktok.com/@yourhandle/video/7251047382916430126", "tiktok.com/@yourhandle/video/7237294018463851822"],
     stats: [
       { tag: "FOL", value: "8.9K", color: "#00f2ea" },

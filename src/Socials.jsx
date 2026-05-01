@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import char1 from "./assets/char1.png";
 import char2 from "./assets/char2.png";
 import char3 from "./assets/char3.png";
-import bgVideo from "./assets/main3.mp4";
+import bgVideo from "./assets/Main1.mp4";
 import newsign from "./assets/newsign.png";
 import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
@@ -19,7 +19,7 @@ const ROLES = [
 
 const ITEMS = [
   {
-    id: "twitch", label: "TWITCH", handle: "@yourname", href: "https://twitch.tv/yourname", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
+    id: "twitch", label: "TWITCH", handle: "@yourname", href: "https://twitch.tv/judgebreaded", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
     links: ["twitch.tv/videos/2041837265"],
     stats: [
       { tag: "FOL", value: "1.2K", color: "#9147ff" },
@@ -27,16 +27,16 @@ const ITEMS = [
     ],
   },
   {
-    id: "instagram", label: "INSTAGRAM", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", barIcon: icon2, bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
-    links: ["instagram.com/p/C4xQmRrNk2a", "instagram.com/p/C3wLpBsOj7f", "instagram.com/reel/C2vKoArMi6e", "instagram.com/p/C1uJnZqLh5d", "instagram.com/reel/C0tImYpKg4c"],
+    id: "instagram", label: "INSTAGRAM", handle: "@brettmackinnon9", href: "https://instagram.com/brettmackinnon9/", icon: "📷", barIcon: icon2, bars: 5, newBars: [0], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
+    links: ["instagram.com/p/DVb3YbikZ9o", "www.instagram.com/tinychihuahuacedric/reel/DXulbClCTWh", "www.instagram.com/p/CRTPgIGApJY", "www.instagram.com/tinychihuahuacedric/p/DXzkyq9Fovq/", "www.instagram.com/p/DUYef8rDvMg/"],
     stats: [
       { tag: "FOL", value: "3.4K", color: "#e1306c" },
       { tag: "PST", value: "128",  color: "#f77737" },
     ],
   },
   {
-    id: "tiktok", label: "TIKTOK", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
-    links: ["tiktok.com/@yourhandle/video/7318492016374859054", "tiktok.com/@yourhandle/video/7305837261940183342", "tiktok.com/@yourhandle/video/7291046385720348974", "tiktok.com/@yourhandle/video/7278392047163820334", "tiktok.com/@yourhandle/video/7264819203847165742", "tiktok.com/@yourhandle/video/7251047382916430126", "tiktok.com/@yourhandle/video/7237294018463851822"],
+    id: "LinkedIn", label: "LinkedIn", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 1, newBars: [0], counts: ["5.1M"],
+    links: ["www.linkedin.com/in/brett-mackinnon-19936111a"],
     stats: [
       { tag: "FOL", value: "8.9K", color: "#00f2ea" },
       { tag: "LKS", value: "52K",  color: "#ff0050" },

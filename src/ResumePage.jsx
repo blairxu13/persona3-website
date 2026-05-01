@@ -10,9 +10,21 @@ const ITEMS = [
 
 const EDUCATION_ROWS = [
   { index: "01", title: "General Education", status: "Complete" },
-  { index: "02", title: "Computer Science Core", status: "In Progress" },
-  { index: "03", title: "Elective Track", status: "Queued" },
-  { index: "04", title: "Capstone Prep", status: "Pending" },
+  { index: "02", title: "Celigo Training", status: "In Progress" },
+  { index: "03", title: "Shopify Server Development", status: "Queued" },
+  { index: "04", title: "Full Stack Development", status: "Pending" },
+];
+const EDUCATION_ROWS_1 = [
+  { index: "01", title: "Shopify Storefront Experience", status: "2 Years" },
+  { index: "02", title: "Celigo Integration", status: "1 Year" },
+  { index: "03", title: "HTML5 / CSS / Node.js", status: "3 Years" },
+  { index: "04", title: "", status: "Pending" },
+];
+const EDUCATION_ROWS_2 = [
+  { index: "01", title: "General Education", status: "Complete" },
+  { index: "02", title: "Celigo Training", status: "In Progress" },
+  { index: "03", title: "Shopify Server Development", status: "Queued" },
+  { index: "04", title: "Full Stack Development", status: "Pending" },
 ];
 
 export default function ResumePage({ src }) {
@@ -425,14 +437,70 @@ export default function ResumePage({ src }) {
             <div className="resume-detail-bottom">
               <div className="resume-detail-bottom-title">DETAILS</div>
               <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- Maintain progress across required classes and supporting work.</div>
-                <div className="resume-detail-bullet">- Track portfolio-ready projects tied to coursework and labs.</div>
-                <div className="resume-detail-bullet">- Keep materials prepared for internships, research, and review.</div>
+                <div className="resume-detail-bullet">- B.F.A Musical Theatre from University of Central Florida</div>
+                <div className="resume-detail-bullet">- Digital Crafts Webdeveloper Bootcamp Completion</div>
+                <div className="resume-detail-bullet">- Celigo Integration Liftoff Certification</div>
+                <div className="resume-detail-bullet">- Utilize AI to develop internal tools and link company systems</div>
               </div>
             </div>
           </div>
         )}
+        {active === 1 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index">02</div>
+              <div className="resume-detail-top-title">Skills</div>
+              <div className="resume-detail-top-progress">7/5</div>
+            </div>
 
+            <div className="resume-detail-list">
+              {EDUCATION_ROWS_1.map((row) => (
+                <div className="resume-detail-row" key={row.index}>
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title">{row.title}</div>
+                  <div className="resume-detail-status">{row.status}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">DETAILS</div>
+              <div className="resume-detail-bullets">
+                <div className="resume-detail-bullet">- Gain greater understanding of application integration</div>
+                <div className="resume-detail-bullet">- Develop a greater understanding of shopify dev ecosystem</div>
+                <div className="resume-detail-bullet">- Utilize AI to develop internal tools and link company systems</div>
+              </div>
+            </div>
+          </div>
+        )}
+        {active === 2 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index">01</div>
+              <div className="resume-detail-top-title">Projects</div>
+              <div className="resume-detail-top-progress">7/5</div>
+            </div>
+
+            <div className="resume-detail-list">
+              {EDUCATION_ROWS_2.map((row) => (
+                <div className="resume-detail-row" key={row.index}>
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title">{row.title}</div>
+                  <div className="resume-detail-status">{row.status}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">DETAILS</div>
+              <div className="resume-detail-bullets">
+                <div className="resume-detail-bullet">- Gain greater understanding of application integration</div>
+                <div className="resume-detail-bullet">- Develop a greater understanding of shopify dev ecosystem</div>
+                <div className="resume-detail-bullet">- Utilize AI to develop internal tools and link company systems</div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
